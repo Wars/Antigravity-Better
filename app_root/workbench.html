@@ -1087,6 +1087,14 @@
 				await new Promise(r => setTimeout(r, 100));
 			}
 		}
+		if (currentSettings.autoAcceptPatterns['allow'] && (currentSettings.autoAcceptUnlimited || currentSettings.autoAcceptRemaining > 0)) {
+			const allowTarget = findScopedPermissionTarget(scope, 'allow');
+			if (allowTarget) {
+				allowTarget.click();
+				if (scope._abUpdateStats) scope._abUpdateStats({ clicks: 1 });
+				await new Promise(r => setTimeout(r, 100));
+			}
+		}
 	}
 	async function performScopedCommandAutoAccept(scope) {
 		if (!scope || !currentSettings.autoAcceptEnabled) return;
